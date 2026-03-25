@@ -121,6 +121,13 @@ class MemorySearchLocal:
         with open(file_path, "r") as f:
             data = json.load(f)
 
+        # Resume: load existing results
+        if os.path.exists(self.output_path):
+            with open(self.output_path, "r") as f:
+                existing = json.load(f)
+            self.results.update({int(k): v for k, v in existing.items()})
+            print(f"Resuming: loaded {len(self.results)} completed conversations")
+
         for idx, item in tqdm(enumerate(data), total=len(data),
                                desc="Processing conversations", colour="green"):
             qa           = item["qa"]
@@ -130,7 +137,15 @@ class MemorySearchLocal:
             uid_a        = f"{speaker_a}_{idx}"
             uid_b        = f"{speaker_b}_{idx}"
 
-            for q_item in tqdm(qa, desc=f"Questions [{idx}]", leave=False, colour="yellow"):
+            already_done = len(self.results.get(idx, []))
+            non_cat5     = [q for q in qa if int(q.get("category", -1)) != 5]
+            if already_done >= len(non_cat5):
+                print(f"  Skipping conv {idx} (already complete)")
+                continue
+            if already_done > 0:
+                print(f"  Resuming conv {idx} from question {already_done}/{len(non_cat5)}")
+
+            for q_item in tqdm(qa[already_done:], desc=f"Questions [{idx}]", leave=False, colour="yellow"):
                 category         = q_item.get("category", -1)
                 if int(category) == 5:
                     continue

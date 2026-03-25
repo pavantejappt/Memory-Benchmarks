@@ -1,7 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
-dataset/
-/*.json
+# dataset/ and storage/ are now tracked via Git LFS
+# dataset/
+# /*.json
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -126,6 +127,7 @@ celerybeat.pid
 
 # Environments
 .env
+# .env is gitignored — copy .env.example and fill in your values
 .venv
 env/
 venv/
