@@ -107,6 +107,8 @@ class MemorySearchLocal:
             model=VLLM_MODEL,
             messages=[{"role": "system", "content": answer_prompt}],
             temperature=0.0,
+            max_tokens=250,
+            extra_body={"chat_template_kwargs": {"enable_thinking": False}},
         )
         t2 = time.time()
 

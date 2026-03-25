@@ -30,6 +30,7 @@ from langmem import (
 import time
 import json
 import os
+import concurrent.futures
 from tqdm import tqdm
 from openai import OpenAI
 from collections import defaultdict
@@ -61,6 +62,8 @@ def get_answer(question, speaker_1_user_id, speaker_1_memories,
         model=LLM_MODEL,
         messages=[{"role": "system", "content": prompt_text}],
         temperature=0.0,
+        max_tokens=250,
+        extra_body={"chat_template_kwargs": {"enable_thinking": False}},
     )
     t2 = time.time()
     return response.choices[0].message.content, t2 - t1
@@ -191,8 +194,11 @@ class LangMemManager:
                 answer   = q["answer"]
                 question = q["question"]
 
-                response1, speaker1_memory_time = agent1.search_memory(question, config)
-                response2, speaker2_memory_time = agent2.search_memory(question, config)
+                with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+                    f1 = ex.submit(agent1.search_memory, question, config)
+                    f2 = ex.submit(agent2.search_memory, question, config)
+                    response1, speaker1_memory_time = f1.result()
+                    response2, speaker2_memory_time = f2.result()
                 generated_answer, response_time = get_answer(
                     question, speaker1, response1, speaker2, response2
                 )
