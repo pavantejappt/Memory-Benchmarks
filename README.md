@@ -2,8 +2,6 @@
 
 Benchmarks various memory backends on the [LoComo dataset](https://github.com/snap-research/locomo/tree/main) — 10 long conversations with ~200 Q&A pairs each across 4 categories: single-hop, temporal, multi-hop, and open-domain.
 
-> Originally forked from [mem0-evaluation](https://github.com/mem0ai/mem0/tree/main/evaluation) at commit `393a4fd5a6cfeb754857a2229726f567a9fadf36`
-
 ---
 
 ## Techniques
