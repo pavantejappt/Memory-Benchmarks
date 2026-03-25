@@ -11,12 +11,8 @@ Benchmarks various memory backends on the [LoComo dataset](https://github.com/sn
 | Technique | Type | Backend | Notes |
 |---|---|---|---|
 | `mem0_local` | Memory | Qdrant + local vLLM | OSS mem0, fully local |
-| `mem0` | Memory | Mem0 Cloud | Needs `MEM0_API_KEY` |
 | `langmem` | Memory | InMemoryStore + local vLLM | RAM only, no persistence |
-| `zep` | Memory | Zep Cloud | Needs `ZEP_API_KEY` |
 | `rag` | RAG | Qdrant + local vLLM | Fixed/turn/multi-turn chunking, dense/sparse/hybrid search |
-| `openai` | LLM | OpenAI API | Needs `OPENAI_API_KEY` |
-| `memobase` | Memory | Memobase Cloud | Needs `MEMOBASE_API_KEY` |
 
 ---
 
@@ -98,14 +94,11 @@ VLLM_MODEL=Qwen/Qwen3-32B
 EMBED_BASE_URL=http://localhost:8002/v1
 EMBEDDING_MODEL=BAAI/bge-base-en-v1.5
 
-# Cloud keys (only needed for cloud techniques)
+# Cloud keys (not used in local runs)
 # OPENAI_API_KEY=
 # MEM0_API_KEY=
-# MEM0_ORGANIZATION_ID=
-# MEM0_PROJECT_ID=
 # ZEP_API_KEY=
 # MEMOBASE_API_KEY=
-# MEMOBASE_PROJECT_URL=
 ```
 
 ### 6. LangMem Patch
@@ -168,37 +161,6 @@ python run_experiments.py --technique_type rag --chunk_size 500 --num_chunks 3 -
 python run_experiments.py --technique_type rag --chunk_size -1 --num_chunks 1 --output_folder results/
 ```
 
-### mem0 cloud
-
-```bash
-python run_experiments.py --technique_type mem0 --method add
-python run_experiments.py --technique_type mem0 --method search --top_k 30 --output_folder results/
-
-# With graph
-python run_experiments.py --technique_type mem0 --method add --is_graph
-python run_experiments.py --technique_type mem0 --method search --is_graph --top_k 30 --output_folder results/
-```
-
-### Zep
-
-```bash
-python run_experiments.py --technique_type zep --method add
-python run_experiments.py --technique_type zep --method search --output_folder results/
-```
-
-### OpenAI
-
-```bash
-python run_experiments.py --technique_type openai --output_folder results/
-```
-
-### Memobase
-
-```bash
-python run_experiments.py --technique_type memobase --method add
-python run_experiments.py --technique_type memobase --method search --output_folder results/
-```
-
 ---
 
 ## Evaluation
@@ -245,17 +207,7 @@ locomo-benchmark/
 │   ├── rag.py                  # RAG (Qdrant, fixed/turn/multi-turn, dense/sparse/hybrid)
 │   ├── memzero/
 │   │   ├── add_local.py        # mem0 OSS add (local vLLM + Qdrant)
-│   │   ├── search_local.py     # mem0 OSS search (local vLLM + Qdrant)
-│   │   ├── add.py              # mem0 cloud add
-│   │   └── search.py           # mem0 cloud search
-│   ├── zep/
-│   │   ├── add.py              # Zep add
-│   │   └── search.py           # Zep search
-│   ├── openai/
-│   │   └── predict.py          # OpenAI full-context
-│   └── memobase_client/
-│       ├── memobase_add.py     # Memobase add
-│       └── memobase_search.py  # Memobase search
+│   │   └── search_local.py     # mem0 OSS search (local vLLM + Qdrant)
 ├── metrics/
 │   ├── llm_judge.py            # LLM judge scorer
 │   └── utils.py
