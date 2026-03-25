@@ -22,17 +22,24 @@ Benchmarks various memory backends on the [LoComo dataset](https://github.com/sn
 
 ## Results
 
-LLM Judge Score (higher is better). Results from [Mem0 paper](https://arxiv.org/pdf/2504.19413) except Memobase (run locally).
+LLM Judge Score (higher is better).
 
-| Method | Single-Hop(%) | Multi-Hop(%) | Open Domain(%) | Temporal(%) | Overall(%) |
-|---|---|---|---|---|---|
-| Mem0 | **67.13** | 51.15 | 72.93 | 55.51 | 66.88 |
-| Mem0-Graph | 65.71 | 47.19 | 75.71 | 58.13 | 68.44 |
-| LangMem | 62.23 | 47.92 | 71.12 | 23.43 | 58.10 |
-| Zep | 61.70 | 41.35 | 76.60 | 49.31 | 65.99 |
-| OpenAI | 63.79 | 42.92 | 62.29 | 21.71 | 52.90 |
-| Memobase (v0.0.32) | 63.83 | **52.08** | 71.82 | 80.37 | 70.91 |
-| Memobase (v0.0.37) | **70.92** | 46.88 | **77.17** | **85.05** | **75.78** |
+Our runs use **Qwen3-32B** (vLLM, local) as both the RAG/memory model and judge, with **BGE-base-en-v1.5** embeddings.
+Results marked with * are from the [Mem0 paper](https://arxiv.org/pdf/2504.19413).
+
+| Method | Model | Single-Hop(%) | Multi-Hop(%) | Open Domain(%) | Temporal(%) | Overall(%) |
+|---|---|---|---|---|---|---|
+| RAG dense nothink | Qwen3-32B | 46.5 | 58.3 | 67.7 | 49.8 | 59.5 |
+| RAG dense think | Qwen3-32B | 50.7 | 50.0 | 70.4 | 53.0 | 61.9 |
+| mem0_local | Qwen3-32B | - | - | - | - | in progress |
+| LangMem local | Qwen3-32B | - | - | - | - | in progress |
+| Mem0* | GPT-4o | **67.13** | 51.15 | 72.93 | 55.51 | 66.88 |
+| Mem0-Graph* | GPT-4o | 65.71 | 47.19 | 75.71 | 58.13 | 68.44 |
+| LangMem* | GPT-4o | 62.23 | 47.92 | 71.12 | 23.43 | 58.10 |
+| Zep* | GPT-4o | 61.70 | 41.35 | 76.60 | 49.31 | 65.99 |
+| OpenAI* | GPT-4o | 63.79 | 42.92 | 62.29 | 21.71 | 52.90 |
+| Memobase v0.0.32* | GPT-4o | 63.83 | **52.08** | 71.82 | 80.37 | 70.91 |
+| Memobase v0.0.37* | GPT-4o | **70.92** | 46.88 | **77.17** | **85.05** | **75.78** |
 
 ---
 
