@@ -25,7 +25,7 @@ All runs use **Qwen3-32B** (vLLM, local) as both the RAG/memory model and judge,
 | RAG | dense | fixed | off | 46.5 | 58.3 | 67.7 | 49.8 | 59.5 |
 | RAG | dense | fixed | on | 50.7 | 50.0 | 70.4 | 53.0 | 61.9 |
 | RAG | sparse (BM25) | fixed | off | 40.4 | 54.2 | 76.1 | 47.7 | 62.3 |
-| RAG | hybrid | fixed | off | - | - | - | - | in progress |
+| RAG | hybrid | fixed | off | 50.0 | 56.3 | 80.0 | 60.4 | 65.8 |
 | RAG | dense | turn-level | off | - | - | - | - | in progress |
 | RAG | dense | multi-turn (3) | off | - | - | - | - | in progress |
 | RAG | dense | full context | off | - | - | - | - | in progress |
