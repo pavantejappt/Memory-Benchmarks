@@ -29,7 +29,7 @@ All runs use **Qwen3-32B** (vLLM, local) as both the RAG/memory model and judge,
 | RAG | dense | turn-level | off | - | - | - | - | in progress |
 | RAG | dense | multi-turn (3) | off | - | - | - | - | in progress |
 | RAG | dense | full context | off | - | - | - | - | in progress |
-| mem0_local | - | - | off | - | - | - | - | in progress |
+| mem0_local | - | - | off | 40.4 | 42.7 | 59.7 | 49.8 | 53.1 |
 | mem0_local | - | - | on | - | - | - | - | in progress |
 | LangMem | - | - | off | - | - | - | - | in progress |
 | LangMem | - | - | on | - | - | - | - | in progress |
